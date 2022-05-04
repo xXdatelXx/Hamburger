@@ -28,4 +28,9 @@ public class TimeBetweenMadeItemsController : MonoBehaviour
     {
         _time.Stop();
     }
+
+    public void End()
+    {
+        _time.End();
+    }
 }

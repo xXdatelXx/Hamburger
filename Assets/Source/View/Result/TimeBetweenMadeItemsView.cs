@@ -7,7 +7,7 @@ public class TimeBetweenMadeItemsView : ResultView
 
     protected override float GetResult()
     {
-        return (float)Math.Round((double)_timeMadeItems.MinTime, 3);
+        return (float)Math.Round((double)_timeMadeItems.CurentTime, 3);
     }
 
     protected override bool NewRecord()

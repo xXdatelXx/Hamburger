@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using System;
 
 public class TimeMadeItems
 {
     private Saver<TimeMadeItemsSeiazable> _saver;
-    private float _curentTime;
     private Stopwatch _stopwatch;
     private List<float> _allTimes;
     private bool _init;
-    public float MinTime => _saver.Load().MinTime;
+    public float CurentTime { get; private set; }
+    public float MinTime => _saver.Load().AllTimes.Min();
     public float AllAvarageTime => GetAvarageTime();
     public bool NewRecord { get; private set; }
 
@@ -51,6 +52,11 @@ public class TimeMadeItems
 
         _stopwatch.Stop();
 
+    }
+
+    public void End()
+    {
+        CheckRecord();
         SetAllTimes();
     }
 
@@ -59,27 +65,20 @@ public class TimeMadeItems
         if (!_init)
             return;
 
-        TrySetMinTime();
-
         float allTime = 0;
         for (int i = 0; i < _allTimes.Count; i++)
             allTime += _allTimes[i];
 
-        _curentTime = allTime / _allTimes.Count;
-
+        CurentTime = allTime / _allTimes.Count;
     }
 
-    private void TrySetMinTime()
+    private void CheckRecord()
     {
-        var timeMadeItems = _saver.Load();
+        if (CurentTime == 0)
+            return;
 
-        if (timeMadeItems.MinTime == 0 ||
-            timeMadeItems.MinTime > _curentTime)
-        {
-            timeMadeItems.MinTime = _curentTime;
-            _saver.Save(timeMadeItems);
+        if (MinTime > CurentTime)
             NewRecord = true;
-        }
     }
 
     private void SetAllTimes()
@@ -87,7 +86,7 @@ public class TimeMadeItems
         var timeMadeItems = _saver.Load();
 
         var allTimes = timeMadeItems.AllTimes;
-        allTimes.Add(_curentTime);
+        allTimes.Add(CurentTime);
         timeMadeItems.AllTimes = allTimes;
 
         _saver.Save(timeMadeItems);
@@ -107,12 +106,10 @@ public class TimeMadeItems
 
 public class TimeMadeItemsSeiazable : SerializableClass
 {
-    public TimeMadeItemsSeiazable(List<float> allTimes = null, float minTime = 0)
+    public TimeMadeItemsSeiazable(List<float> allTimes = null)
     {
         AllTimes = allTimes;
-        MinTime = minTime;
     }
 
     public List<float> AllTimes;
-    public float MinTime;
 }
