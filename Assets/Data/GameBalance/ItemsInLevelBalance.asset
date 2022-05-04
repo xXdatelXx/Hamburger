@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d10342c978d42b4b88aa50ab4b183af, type: 3}
+  m_Name: ItemsInLevelBalance
+  m_EditorClassIdentifier: 
+  _minItemsInFirstLevel: 1
+  _maxItemsInFirstLevel: 2
+  _minItemsInSecondLevel: 3
+  _maxItemsInSecondLevel: 4
+  _minItemsInThirdtLevel: 5
+  _maxItemsInThirdtLevel: 6
+  _minItemsInFourthLevel: 7
+  _maxItemsInFourthLevel: 8
+  _minItemsInMaxLevel: 8
+  _maxItemsInMaxLevel: 9
