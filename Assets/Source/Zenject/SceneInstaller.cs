@@ -8,10 +8,12 @@ public class SceneInstaller : MonoInstaller
     [SerializeField] private RecipeItemFactory _recipeItemFactory;
     [SerializeField] private HamburgerControllersEvents _hamburgerControllerEvents;
     [SerializeField] private ItemsList _itemsList;
+    [SerializeField] private ItemImages _itemImages;
     [SerializeField] private TimerBalance _timerBalance;
     [SerializeField] private LevelBalance _levelBalance;
     [SerializeField] private ItemsInLevelBalance _itemsInLevelBalance;
     [SerializeField] private TickableController _tickableController;
+
     private Hamburger _hamburger;
     private RecipeFactory _recipeFactory;
     private HamburgerValid _hamburgerValid;
@@ -58,6 +60,7 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_hamburgerFactory);
         Container.BindInstance(_hamburgerValid);
         Container.BindInstance(_itemsList);
+        Container.BindInstance(_itemImages);
     }
 
     private void BindRecipe()

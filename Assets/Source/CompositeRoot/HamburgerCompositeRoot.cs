@@ -6,7 +6,9 @@ using System;
 public class HamburgerCompositeRoot : CompositeRoot
 {
     [SerializeField] private List<HamburgerController> _controllers;
+    [SerializeField] private List<HamburgerControllerImage> _images;
     [Inject] private ItemsList _items;
+    [Inject] private ItemImages _itemImages;
 
     public override void Compose()
     {
@@ -25,6 +27,9 @@ public class HamburgerCompositeRoot : CompositeRoot
     {
         for (int i = 0; i < _controllers.Count; i++)
             _controllers[i].InIt(_items.GetList()[i]);
+
+        for (int i = 0; i < _itemImages.Count; i++)
+            _images[i].Set(_itemImages.Sprites[i]);
     }
 
     public void SetRecipe(Recipe recipe)
