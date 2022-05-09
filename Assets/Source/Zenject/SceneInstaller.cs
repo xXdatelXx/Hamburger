@@ -11,8 +11,10 @@ public class SceneInstaller : MonoInstaller
     [SerializeField] private ItemImages _itemImages;
     [SerializeField] private TimerBalance _timerBalance;
     [SerializeField] private LevelBalance _levelBalance;
+    [SerializeField] private EventBalance _eventBalance;
     [SerializeField] private ItemsInLevelBalance _itemsInLevelBalance;
     [SerializeField] private TickableController _tickableController;
+    [SerializeField] GameState _gameState;
 
     private Hamburger _hamburger;
     private RecipeFactory _recipeFactory;
@@ -40,6 +42,7 @@ public class SceneInstaller : MonoInstaller
         BindEvents();
         BindTimer();
         BindScore();
+        BindGameState();
     }
 
     private void CreateInstance()
@@ -72,6 +75,7 @@ public class SceneInstaller : MonoInstaller
     private void BindEvents()
     {
         Container.BindInstance(_hamburgerControllerEvents);
+        Container.BindInstances(_eventBalance);
     }
 
     private void BindTimer()
@@ -87,5 +91,10 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_timePlay);
         Container.BindInstance(_madeItems);
         Container.BindInstance(_timeBetweenMadeItems);
+    }
+
+    private void BindGameState()
+    {
+        Container.BindInstance(_gameState);
     }
 }

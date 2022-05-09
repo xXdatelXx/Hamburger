@@ -2,20 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class HamburgerCompositeRootValidation : MonoBehaviour
+public class HamburgerCompositeRootValidation
 {
-    private List<HamburgerController> _controllers;
+    private List<(HamburgerController, HamburgerControllerImage)> _container;
     private List<Item> _items;
 
-    public HamburgerCompositeRootValidation(List<HamburgerController> controllers, List<Item> items)
+    public HamburgerCompositeRootValidation(List<(HamburgerController, HamburgerControllerImage)> container, List<Item> items)
     {
-        _controllers = controllers;
+        _container = container;
         _items = items;
     }
 
     public bool Validate()
     {
-        if (_controllers == null)
+        if (_container == null)
         {
             return false;
             throw new NullReferenceException("Сontroller == null");
@@ -27,7 +27,7 @@ public class HamburgerCompositeRootValidation : MonoBehaviour
             throw new NullReferenceException("Items == null");
         }
 
-        if (_controllers.Count != _items.Count)
+        if (_container.Count != _items.Count)
         {
             return false;
             throw new NullReferenceException("Сontrollers Count != Items Count");

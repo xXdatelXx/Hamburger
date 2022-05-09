@@ -18,7 +18,7 @@ public abstract class ResultView : MonoBehaviour
         _text.text = GetResult().ToString();
 
         if (NewRecord())
-            _onNewRecord?.Invoke();
+            _onNewRecord.Invoke();
     }
 
     protected abstract float GetResult();

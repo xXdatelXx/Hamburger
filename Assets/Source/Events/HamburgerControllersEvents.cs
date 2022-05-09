@@ -9,16 +9,16 @@ public class HamburgerControllersEvents : MonoBehaviour
 
     public void Finish()
     {
-        OnFinish?.Invoke();
+        OnFinish.Invoke();
     }
 
     public void Error()
     {
-        OnErrorAdd?.Invoke();
+        OnErrorAdd.Invoke();
     }
 
     public void Add()
     {
-        OnAdd?.Invoke();
+        OnAdd.Invoke();
     }
 }

@@ -7,6 +7,6 @@ public class RecipeControllerEvents : MonoBehaviour
 
     public void OnCreateNewRecipe(Recipe recipe)
     {
-        _onCreateNewRecipe?.Invoke(recipe);
+        _onCreateNewRecipe.Invoke(recipe);
     }
 }
