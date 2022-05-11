@@ -94,13 +94,13 @@ public class RecipeFactory
     private int GetItemsCount()
     {
         Level level = _gameLevel.GetGameLevel();
-        if (level == Level.first)
+        if (level == Level.First)
             return Random.Range(_itemsInLevel.ItemsInFirstLevel.Item1, _itemsInLevel.ItemsInFirstLevel.Item2);
-        if (level == Level.second)
+        if (level == Level.Second)
             return Random.Range(_itemsInLevel.ItemsInSecondLevel.Item1, _itemsInLevel.ItemsInSecondLevel.Item2);
-        if (level == Level.third)
+        if (level == Level.Third)
             return Random.Range(_itemsInLevel.ItemsInThirdLevel.Item1, _itemsInLevel.ItemsInThirdLevel.Item2);
-        if (level == Level.fourth)
+        if (level == Level.Fourth)
             return Random.Range(_itemsInLevel.ItemsInFourthtLevel.Item1, _itemsInLevel.ItemsInFourthtLevel.Item2);
 
         return Random.Range(_itemsInLevel.ItemsInMaxLevel.Item1, _itemsInLevel.ItemsInMaxLevel.Item2);

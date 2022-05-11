@@ -14,23 +14,23 @@ public class GameLevel
         int score = _score.CurentScore;
 
         if (score <= _levelBalance.ItemsInFirstLevel)
-            return Level.first;
+            return Level.First;
         if (score <= _levelBalance.ItemsInSecondLevel)
-            return Level.second;
+            return Level.Second;
         if (score <= _levelBalance.ItemsInThirdLevel)
-            return Level.third;
+            return Level.Third;
         if (score <= _levelBalance.ItemsInFourthtLevel)
-            return Level.fourth;
+            return Level.Fourth;
 
-        return Level.max;
+        return Level.Max;
     }
 }
 
 public enum Level
 {
-    first,
-    second,
-    third,
-    fourth,
-    max
+    First,
+    Second,
+    Third,
+    Fourth,
+    Max
 }

@@ -4,6 +4,7 @@ using System;
 
 public class SceneInstaller : MonoInstaller
 {
+    [SerializeField] private HamburgerCompositeRoot _hamburgerCompositeRoot;
     [SerializeField] private HamburgerFactory _hamburgerFactory;
     [SerializeField] private RecipeItemFactory _recipeItemFactory;
     [SerializeField] private HamburgerControllersEvents _hamburgerControllerEvents;
@@ -24,6 +25,7 @@ public class SceneInstaller : MonoInstaller
     private Score _score;
     private TimePlay _timePlay;
     private TimeMadeItems _timeBetweenMadeItems;
+    private GameLevel _gameLevel;
 
     private void OnValidate()
     {
@@ -52,7 +54,8 @@ public class SceneInstaller : MonoInstaller
         _madeItems = new MadeItems();
         _timePlay = new TimePlay();
         _timer = new Timer(_timerBalance.Time);
-        _recipeFactory = new RecipeFactory(_itemsList, _itemsInLevelBalance, new GameLevel(_levelBalance, _score));
+        _gameLevel = new GameLevel(_levelBalance, _score);
+        _recipeFactory = new RecipeFactory(_itemsList, _itemsInLevelBalance, _gameLevel);
         _hamburgerValid = new HamburgerValid(_recipeFactory.Create());
         _timeBetweenMadeItems = new TimeMadeItems();
     }
@@ -64,6 +67,7 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_hamburgerValid);
         Container.BindInstance(_itemsList);
         Container.BindInstance(_itemImages);
+        Container.BindInstance(_hamburgerCompositeRoot);
     }
 
     private void BindRecipe()
@@ -96,5 +100,6 @@ public class SceneInstaller : MonoInstaller
     private void BindGameState()
     {
         Container.BindInstance(_gameState);
+        Container.BindInstance(_gameLevel);
     }
 }

@@ -28,7 +28,7 @@ public class GameState : MonoBehaviour
         {
             _state = States.Play;
 
-            _onEndInspectEvent.Invoke();
+            _onEndInspectRecipe.Invoke();
             _onPlay.Invoke();
         }
     }
@@ -39,7 +39,6 @@ public class GameState : MonoBehaviour
         {
             _state = States.Lose;
 
-            _onEndPlay.Invoke();
             _onLose.Invoke();
         }
     }
@@ -68,11 +67,10 @@ public class GameState : MonoBehaviour
 
     public void InspectRecipe()
     {
-        print(_state);
         switch (_state)
         {
             case States.InspectEvent:
-                _onEndInspectRecipe.Invoke();
+                _onEndInspectEvent.Invoke();
                 break;
             case States.Finish:
                 _onEndFinish.Invoke();

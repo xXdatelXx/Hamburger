@@ -12,6 +12,8 @@ public class EventBalance : ScriptableObject
     public int RandomPairinLevel2 => _randomPairinLevel2;
     [SerializeField, Range(0, 10)] private int _randomPairinLevel3;
     public int RandomPairinLevel3 => _randomPairinLevel3;
+    [SerializeField, Range(0, 10)] private int _randomPairinLevel4;
+    public int RandomPairinLevel4 => _randomPairinLevel4;
     [SerializeField, Range(0, 10)] private int _randomPairinLevelMax;
     public int RandomPairinLevelMax => _randomPairinLevelMax;
 
@@ -22,6 +24,7 @@ public class EventBalance : ScriptableObject
         validate.ValidateValue(ref _randomPairinLevel1, 0);
         validate.ValidateValue(ref _randomPairinLevel2, _randomPairinLevel1);
         validate.ValidateValue(ref _randomPairinLevel3, _randomPairinLevel2);
-        validate.ValidateValue(ref _randomPairinLevelMax, _randomPairinLevel3);
+        validate.ValidateValue(ref _randomPairinLevel4, _randomPairinLevel3);
+        validate.ValidateValue(ref _randomPairinLevelMax, _randomPairinLevel4);
     }
 }

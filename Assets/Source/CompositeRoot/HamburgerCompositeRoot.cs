@@ -8,13 +8,18 @@ public class HamburgerCompositeRoot : CompositeRoot
     [SerializeField] private List<HamburgerControllerImage> _images;
     [Inject] private ItemsList _items;
     [Inject] private ItemImages _itemImages;
-    private List<(HamburgerController, HamburgerControllerImage)> _container;
+    private List<(HamburgerController, HamburgerControllerImage)> _containers;
+    private List<(Item, Sprite)> _containersData;
 
     public override void Compose()
     {
-        _container = new List<(HamburgerController, HamburgerControllerImage)>();
+        _containers = new List<(HamburgerController, HamburgerControllerImage)>();
+        _containersData = new List<(Item, Sprite)>();
+        
         for (int i = 0; i < _controllers.Count; i++)
-            _container.Add((_controllers[i], _images[i]));
+            _containers.Add((_controllers[i], _images[i]));
+        for (int i = 0; i < _items.GetList().Count; i++)
+            _containersData.Add((_items.GetList()[i] , _itemImages.Sprites[i]));
 
         Validate();
         ItemInit();
@@ -22,21 +27,21 @@ public class HamburgerCompositeRoot : CompositeRoot
 
     private void Validate()
     {
-        var validation = new HamburgerCompositeRootValidation(_container, _items.GetList());
+        var validation = new HamburgerCompositeRootValidation(_containers, _items.GetList());
         if (!validation.Validate())
             enabled = false;
     }
 
-    private void ItemInit()
+    public void ItemInit()
     {
         for (int i = 0; i < _controllers.Count; i++)
         {
-            _container[i].Item1.InIt(_items.GetList()[i]);
-            _container[i].Item2.Set(_itemImages.Sprites[i]);
+            _containers[i].Item1.InIt(_containersData[i].Item1);
+            _containers[i].Item2.Set(_containersData[i].Item2);
         }
     }
 
-    public void RandomItemInit(int randomPairCount)
+    public void RandomizeItems(int randomPairCount)
     {
         if (randomPairCount < 0)
             return;
@@ -47,22 +52,30 @@ public class HamburgerCompositeRoot : CompositeRoot
         var itemsId = new List<int>();
         for (int i = 0; i < randomPairCount * 2; i++)
         {
-            int id = Random.Range(0, _controllers.Count);
+            int id = Random.Range(0, _items.GetList().Count);
 
             while (itemsId.Contains(id))
-                id = Random.Range(0, _controllers.Count);
+                id = Random.Range(0, _items.GetList().Count);
 
             itemsId.Add(id);
         }
+        
+        foreach (int id in itemsId)
+            (_containersData[id], _containersData[itemsId[^1]]) = (_containersData[itemsId[^1]], _containersData[id]);
+    }
 
-        foreach (var id in itemsId)
+    public void ItemInit(List<(HamburgerController, HamburgerControllerImage)> containers)
+    {
+        if (containers == null)
+            throw new System.NullReferenceException("container in itemInit == null");
+
+        int containerLength = (containers.Count < _containers.Count) ? containers.Count : _containers.Count;
+
+        for (int i = 0; i < containerLength; i++)
         {
-            var temp = _container[id];
-            _container[id] = _container[itemsId[itemsId.Count - 1]];
-            _container[itemsId[itemsId.Count - 1]] = temp;
+            containers[i].Item1.InIt(_containersData[i].Item1);
+            containers[i].Item2.Set(_containersData[i].Item2);
         }
-
-        ItemInit();
     }
 
     public void SetRecipe(Recipe recipe)
@@ -73,7 +86,7 @@ public class HamburgerCompositeRoot : CompositeRoot
             throw new System.NullReferenceException("recipe on SetRecipe is null");
         }
 
-        for (int i = 0; i < _controllers.Count; i++)
-            _controllers[i].SetRecipe(recipe);
+        foreach (var controller in _controllers)
+            controller.SetRecipe(recipe);
     }
 }

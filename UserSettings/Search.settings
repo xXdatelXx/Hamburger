@@ -3,11 +3,11 @@ fetchPreview = true
 wantsMore = false
 keepOpen = false
 queryFolder = "Assets"
-onBoardingDoNotAskAgain = false
+onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.785D90A9" = "timer"
+	"last_search.785D90A9" = "time"
 	"OpenInspectorPreview.785D90A9" = "0"
 	"currentGroup.785D90A9" = "scene"
 }
