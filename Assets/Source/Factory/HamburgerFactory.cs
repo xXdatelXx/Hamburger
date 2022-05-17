@@ -1,3 +1,3 @@
-public class HamburgerFactory : ItemFactory
+public class HamburgerFactory : IngredientFactory
 {
 }

@@ -4,48 +4,69 @@ using Zenject;
 
 public class HamburgerController : MonoBehaviour
 {
-    private Item _item;
+    private Ingredient _ingredient;
 
-    [Inject] private readonly Hamburger _hamburger;
-    [Inject] private readonly HamburgerFactory _itemFactory;
-    [Inject] private readonly HamburgerControllersEvents _events;
-    [Inject] private HamburgerValid _valid;
+    private Hamburger _hamburger;
+    private HamburgerFactory _factory;
+    private HamburgerControllersEvents _events;
+    private HamburgerValid _valid;
 
-    private bool _initialized => _item != null && _hamburger != null && _itemFactory != null;
-    private bool _canAdd => _valid.ValidItem(_item, _hamburger.ItemCount);
+    private bool _canAdd => _valid.ValidItem(_ingredient, _hamburger.IngredientCount);
     private bool _finish => _valid.Finish(_hamburger);
 
-    public void InIt(Item item)
+    [Inject]
+    private void Construct(Hamburger hamburger, HamburgerFactory factory, HamburgerControllersEvents events, HamburgerValid valid)
     {
-        if (item == null)
+        _hamburger = hamburger;
+        _factory = factory;
+        _events = events;
+        _valid = valid;
+    }
+
+    private void Awake()
+    {
+        bool initialized =
+            _ingredient != null &&
+            _hamburger != null &&
+            _factory != null &&
+            _events != null &&
+            _valid != null;
+
+        if (!initialized)
+            throw new NullReferenceException();
+    }
+
+    public void SetIngredient(Ingredient ingredient)
+    {
+        if (ingredient == null)
         {
             enabled = false;
             throw new NullReferenceException("item == null");
         }
 
-        _item = item;
+        _ingredient = ingredient;
     }
 
     public void TryAdd()
     {
-        if (!_initialized)
+        if (_ingredient is null)
             return;
 
         if (_canAdd)
         {
-            _hamburger.Add(_itemFactory.Create(_item));
+            _hamburger.Add(_factory.Create(_ingredient));
             _events.Add();
-        }
-        else
-        {
-            _events.Error();
+
+            if (_finish)
+            {
+                _events.Finish();
+                _hamburger.RemoveAll();
+            }
+
+            return;
         }
 
-        if (_finish)
-        {
-            _events.Finish();
-            _hamburger.RemoveAll();
-        }
+        _events.Error();
     }
 
     public void SetRecipe(Recipe recipe)

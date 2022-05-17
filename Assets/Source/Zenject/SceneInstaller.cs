@@ -4,16 +4,15 @@ using System;
 
 public class SceneInstaller : MonoInstaller
 {
-    [SerializeField] private HamburgerCompositeRoot _hamburgerCompositeRoot;
     [SerializeField] private HamburgerFactory _hamburgerFactory;
-    [SerializeField] private RecipeItemFactory _recipeItemFactory;
+    [SerializeField] private RecipeGameObjectFactory recipeGameObjectFactory;
     [SerializeField] private HamburgerControllersEvents _hamburgerControllerEvents;
-    [SerializeField] private ItemsList _itemsList;
-    [SerializeField] private ItemImages _itemImages;
+    [SerializeField] private Ingredients _ingredients;
+    [SerializeField] private ControllerSprites _controllerSprites;
     [SerializeField] private TimerBalance _timerBalance;
     [SerializeField] private LevelBalance _levelBalance;
     [SerializeField] private EventBalance _eventBalance;
-    [SerializeField] private ItemsInLevelBalance _itemsInLevelBalance;
+    [SerializeField] private IngredientsInLevelBalance _ingredientsInLevelBalance;
     [SerializeField] private TickableController _tickableController;
     [SerializeField] GameState _gameState;
 
@@ -21,15 +20,17 @@ public class SceneInstaller : MonoInstaller
     private RecipeFactory _recipeFactory;
     private HamburgerValid _hamburgerValid;
     private Timer _timer;
-    private MadeItems _madeItems;
+    private MadeIngredients _madeIngredients;
     private Score _score;
     private TimePlay _timePlay;
-    private TimeMadeItems _timeBetweenMadeItems;
+    private TimeMadeIngredients _timeBetweenMadeIngredients;
     private GameLevel _gameLevel;
+    private HamburgerControllersInitializer _hamburgerControllersInitializer;
+    private HamburgerControllersDataController _hamburgerControllersDataController;
 
     private void OnValidate()
     {
-        if (_hamburgerFactory == _recipeItemFactory)
+        if (_hamburgerFactory == recipeGameObjectFactory)
         {
             enabled = false;
             throw new Exception("HamburgerFactory must != RecipeItemFactory");
@@ -51,13 +52,15 @@ public class SceneInstaller : MonoInstaller
     {
         _hamburger = new Hamburger();
         _score = new Score();
-        _madeItems = new MadeItems();
+        _madeIngredients = new MadeIngredients();
         _timePlay = new TimePlay();
         _timer = new Timer(_timerBalance.Time);
         _gameLevel = new GameLevel(_levelBalance, _score);
-        _recipeFactory = new RecipeFactory(_itemsList, _itemsInLevelBalance, _gameLevel);
+        _recipeFactory = new RecipeFactory(_ingredients, _ingredientsInLevelBalance, _gameLevel);
         _hamburgerValid = new HamburgerValid(_recipeFactory.Create());
-        _timeBetweenMadeItems = new TimeMadeItems();
+        _timeBetweenMadeIngredients = new TimeMadeIngredients();
+        _hamburgerControllersDataController = new HamburgerControllersDataController(_ingredients , _controllerSprites);
+        _hamburgerControllersInitializer = new HamburgerControllersInitializer(_hamburgerControllersDataController.Data);
     }
 
     private void BindHumburger()
@@ -65,15 +68,16 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_hamburger);
         Container.BindInstance(_hamburgerFactory);
         Container.BindInstance(_hamburgerValid);
-        Container.BindInstance(_itemsList);
-        Container.BindInstance(_itemImages);
-        Container.BindInstance(_hamburgerCompositeRoot);
+        Container.BindInstance(_ingredients);
+        Container.BindInstance(_controllerSprites);
+        Container.BindInstance(_hamburgerControllersDataController);
+        Container.BindInstance(_hamburgerControllersInitializer);
     }
 
     private void BindRecipe()
     {
         Container.BindInstance(_recipeFactory);
-        Container.BindInstance(_recipeItemFactory);
+        Container.BindInstance(recipeGameObjectFactory);
     }
 
     private void BindEvents()
@@ -93,8 +97,8 @@ public class SceneInstaller : MonoInstaller
     {
         Container.BindInstance(_score);
         Container.BindInstance(_timePlay);
-        Container.BindInstance(_madeItems);
-        Container.BindInstance(_timeBetweenMadeItems);
+        Container.BindInstance(_madeIngredients);
+        Container.BindInstance(_timeBetweenMadeIngredients);
     }
 
     private void BindGameState()

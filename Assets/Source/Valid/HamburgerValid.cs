@@ -3,7 +3,7 @@ using System;
 public class HamburgerValid
 {
     private readonly Recipe _recipe;
-    private readonly ItemsCollectionValidation _itemsCollectionValidation;
+    private readonly IngredientCollectionValidation _ingredientCollectionValidation;
 
     public HamburgerValid(Recipe recipe)
     {
@@ -11,22 +11,22 @@ public class HamburgerValid
             throw new ArgumentNullException("recipe on hamburgerValid == null");
 
         _recipe = recipe;
-        _itemsCollectionValidation = new ItemsCollectionValidation();
+        _ingredientCollectionValidation = new IngredientCollectionValidation();
     }
 
-    public bool ValidItem(Item item, int number)
+    public bool ValidItem(Ingredient ingredient, int number)
     {
         if (number < 0)
             return false;
 
-        if (item == null)
+        if (ingredient == null)
             return false;
 
-        return _recipe[number].GetType() == item.GetType();
+        return _recipe[number].GetType() == ingredient.GetType();
     }
 
     public bool Finish(Hamburger hamburger)
     {
-        return _itemsCollectionValidation.Equal(hamburger, _recipe);
+        return _ingredientCollectionValidation.Equal(hamburger, _recipe);
     }
 }

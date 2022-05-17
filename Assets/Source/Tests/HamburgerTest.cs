@@ -13,11 +13,11 @@ public class HamburgerTest
     public IEnumerator HamburgerController_AddItemTo_HamburgerSimulation()
     {
         var controller = new GameObject().AddComponent<HamburgerController>();
-        var meat = new GameObject().AddComponent<MeatItem>();
+        var meat = new GameObject().AddComponent<Meat>();
 
         //_recipeStrategy.SetRecipe(new Recipe() { new MeatItem() });
 
-        controller.InIt(meat);
+        //controller.InIt(meat);
         controller.TryAdd();
 
         // Assert.AreEqual(true, _hamburger.Items[0].Equals(meat));

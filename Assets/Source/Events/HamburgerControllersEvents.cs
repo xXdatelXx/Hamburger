@@ -3,22 +3,22 @@ using UnityEngine.Events;
 
 public class HamburgerControllersEvents : MonoBehaviour
 {
-    [SerializeField] private UnityEvent OnFinish;
-    [SerializeField] private UnityEvent OnErrorAdd;
-    [SerializeField] private UnityEvent OnAdd;
+    [SerializeField] private UnityEvent _onFinish;
+    [SerializeField] private UnityEvent _onErrorAdd;
+    [SerializeField] private UnityEvent _onAdd;
 
     public void Finish()
     {
-        OnFinish.Invoke();
+        _onFinish.Invoke();
     }
 
     public void Error()
     {
-        OnErrorAdd.Invoke();
+        _onErrorAdd.Invoke();
     }
 
     public void Add()
     {
-        OnAdd.Invoke();
+        _onAdd.Invoke();
     }
 }

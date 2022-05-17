@@ -13,13 +13,13 @@ public class GameLevel
     {
         int score = _score.CurentScore;
 
-        if (score <= _levelBalance.ItemsInFirstLevel)
+        if (score <= _levelBalance.IngredientsInFirstLevel)
             return Level.First;
-        if (score <= _levelBalance.ItemsInSecondLevel)
+        if (score <= _levelBalance.IngredientsInSecondLevel)
             return Level.Second;
-        if (score <= _levelBalance.ItemsInThirdLevel)
+        if (score <= _levelBalance.IngredientsInThirdLevel)
             return Level.Third;
-        if (score <= _levelBalance.ItemsInFourthtLevel)
+        if (score <= _levelBalance.IngredientsInFourthtLevel)
             return Level.Fourth;
 
         return Level.Max;

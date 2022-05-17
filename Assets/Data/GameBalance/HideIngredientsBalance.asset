@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4eac0f61be02ce4ca08a0a5e707b05f, type: 3}
-  m_Name: LevelBalance
+  m_Script: {fileID: 11500000, guid: 96f9eff96ec01b641b9c05ffc220411f, type: 3}
+  m_Name: HideIngredientsBalance
   m_EditorClassIdentifier: 
-  _ingredientsInFirstLevel: 5
-  _ingredientsInSecondLevel: 10
-  _ingredientsInThirdtLevel: 15
-  _ingredientsInFourthLevel: 20
+  _hideIngredientsInLevel1: 1
+  _hideIngredientsInLeve2: 2
+  _hideIngredientsInLeve3: 3
+  _hideIngredientsInLeve4: 4
+  _hideIngredientsInLeveMax: 5
+  _percentToHide: 100

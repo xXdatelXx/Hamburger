@@ -4,24 +4,24 @@ using System.Linq;
 
 public class RecipeFactory
 {
-    private readonly List<Item> _items;
+    private readonly List<Ingredient> _ingredients;
     private readonly GameLevel _gameLevel;
-    private readonly ItemsInLevelBalance _itemsInLevel;
-    private readonly ItemsCollectionValidation _itemsCollectionValidation;
+    private readonly IngredientsInLevelBalance _balance;
+    private readonly IngredientCollectionValidation _ingredientCollectionValidation;
     public Recipe Recipe { get; private set; }
 
-    public RecipeFactory(ItemsList itemList, ItemsInLevelBalance itemsInLevel, GameLevel gameLevel)
+    public RecipeFactory(Ingredients ingredients, IngredientsInLevelBalance balance, GameLevel gameLevel)
     {
         _gameLevel = gameLevel;
-        _itemsInLevel = itemsInLevel;
-        _itemsCollectionValidation = new ItemsCollectionValidation();
+        _balance = balance;
+        _ingredientCollectionValidation = new IngredientCollectionValidation();
 
-        _items = itemList.GetList()
+        _ingredients = ingredients.GetList()
              .Where
             (
-                item =>
-                item.GetType() != new BreadDownItem().GetType() &&
-                item.GetType() != new BreadUpItem().GetType()
+                ingredient =>
+                ingredient.GetType() != typeof(BreadTop) &&
+                ingredient.GetType() != typeof(BreadTop)
             )
             .ToList();
     }
@@ -30,25 +30,25 @@ public class RecipeFactory
     {
         var recipe = new Recipe();
 
-        recipe.Add(new BreadDownItem());
+        recipe.Add(new BreadBottom());
 
         int itemsCount = GetItemsCount();
         for (int i = 0; i < itemsCount; i++)
         {
-            int nextItemId = Random.Range(0, _items.Count);
+            int nextItemId = Random.Range(0, _ingredients.Count);
 
-            while (_items[nextItemId].GetType() == recipe[i].GetType())
-                nextItemId = Random.Range(0, _items.Count);
+            while (_ingredients[nextItemId].GetType() == recipe[i].GetType())
+                nextItemId = Random.Range(0, _ingredients.Count);
 
-            recipe.Add(_items[nextItemId]);
+            recipe.Add(_ingredients[nextItemId]);
         }
 
         TryRemoveGreen(ref recipe);
         TryAddMeat(ref recipe);
 
-        recipe.Add(new BreadUpItem());
+        recipe.Add(new BreadTop());
 
-        if (_itemsCollectionValidation.Equal(recipe, Recipe))
+        if (_ingredientCollectionValidation.Equal(recipe, Recipe))
             return Recipe = Create();
 
         return Recipe = recipe;
@@ -57,52 +57,53 @@ public class RecipeFactory
     private void TryAddMeat(ref Recipe recipe)
     {
         // якшо немае мяса то додать
-        Item meatItem = recipe.Find(item => item.GetType() == new MeatItem().GetType());
+        Ingredient meatIngredient = recipe.Find(item => item.GetType() == typeof(Meat));
 
-        if (meatItem is null)
-            recipe.Insert(Random.Range(1, recipe.ItemCount), new MeatItem());
+        if (meatIngredient is null)
+            recipe.Insert(Random.Range(1, recipe.IngredientCount), new Meat());
     }
 
     private void TryRemoveGreen(ref Recipe recipe)
     {
         // якшо э зелень и пид нею э сир - зелень заменити на шось инше
         List<int> greensId = new List<int>();
-        for (int i = 0; i < recipe.ItemCount; i++)
+        for (int i = 0; i < recipe.IngredientCount; i++)
         {
-            if (recipe[i].GetType() == new GreenItem().GetType())
+            if (recipe[i].GetType() == typeof(Green))
                 greensId.Add(i);
         }
 
         // Вибрати з всих елементив все крим сира и зелени
         // сир и зелень не нада шоб не було повторок
-        List<Item> items = _items
+        List<Ingredient> ingredients = _ingredients
             .Where
             (
                 item =>
-                item.GetType() != new CheaseItem().GetType() &&
-                item.GetType() != new GreenItem().GetType()
+                item.GetType() != typeof(Chease) &&
+                item.GetType() != typeof(Green)
             )
             .ToList();
 
         for (int i = 0; i < greensId.Count; i++)
         {
-            if (recipe[greensId[i] - 1].GetType() == new CheaseItem().GetType())
-                recipe.Set(greensId[i], items[Random.Range(0, items.Count)]);
+            if (recipe[greensId[i] - 1].GetType() == typeof(Chease))
+                recipe.Set(greensId[i], ingredients[Random.Range(0, ingredients.Count)]);
         }
     }
 
     private int GetItemsCount()
     {
         Level level = _gameLevel.GetGameLevel();
-        if (level == Level.First)
-            return Random.Range(_itemsInLevel.ItemsInFirstLevel.Item1, _itemsInLevel.ItemsInFirstLevel.Item2);
-        if (level == Level.Second)
-            return Random.Range(_itemsInLevel.ItemsInSecondLevel.Item1, _itemsInLevel.ItemsInSecondLevel.Item2);
-        if (level == Level.Third)
-            return Random.Range(_itemsInLevel.ItemsInThirdLevel.Item1, _itemsInLevel.ItemsInThirdLevel.Item2);
-        if (level == Level.Fourth)
-            return Random.Range(_itemsInLevel.ItemsInFourthtLevel.Item1, _itemsInLevel.ItemsInFourthtLevel.Item2);
 
-        return Random.Range(_itemsInLevel.ItemsInMaxLevel.Item1, _itemsInLevel.ItemsInMaxLevel.Item2);
+        if (level == Level.First)
+            return Random.Range(_balance.IngredientsInFirstLevel.Item1, _balance.IngredientsInFirstLevel.Item2);
+        if (level == Level.Second)
+            return Random.Range(_balance.IngredientsInSecondLevel.Item1, _balance.IngredientsInSecondLevel.Item2);
+        if (level == Level.Third)
+            return Random.Range(_balance.IngredientsInThirdLevel.Item1, _balance.IngredientsInThirdLevel.Item2);
+        if (level == Level.Fourth)
+            return Random.Range(_balance.IngredientsInFourthtLevel.Item1, _balance.IngredientsInFourthtLevel.Item2);
+
+        return Random.Range(_balance.IngredientsInMaxLevel.Item1, _balance.IngredientsInMaxLevel.Item2);
     }
 }

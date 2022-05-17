@@ -3,9 +3,16 @@ using Zenject;
 
 public class TimePlayController : MonoBehaviour
 {
-    [Inject] private TickableController _tickableController;
-    [Inject] private TimePlay _timePlay;
+    private TickableController _tickableController;
+    private TimePlay _timePlay;
     private Stopwatch _stopwatch;
+
+    [Inject]
+    private void Construct(TickableController tickableController, TimePlay timePlay)
+    {
+        _tickableController = tickableController;
+        _timePlay = timePlay;
+    }
 
     private void Awake()
     {

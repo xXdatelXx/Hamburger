@@ -3,28 +3,28 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "GameData/Balance/Event", fileName = "EventBalance")]
 public class EventBalance : ScriptableObject
 {
-    [SerializeField, Range(0, 10)] private int _hamburgerToEvent = 5;
-    public int HamburgerToEvent => _hamburgerToEvent;
+    [SerializeField, Range(0, 10)] private int _hamburgersToEvent = 5;
+    public int HamburgersToEvent => _hamburgersToEvent;
 
-    [SerializeField, Range(0, 10)] private int _randomPairinLevel1;
-    public int RandomPairinLevel1 => _randomPairinLevel1;
-    [SerializeField, Range(0, 10)] private int _randomPairinLevel2;
-    public int RandomPairinLevel2 => _randomPairinLevel2;
-    [SerializeField, Range(0, 10)] private int _randomPairinLevel3;
-    public int RandomPairinLevel3 => _randomPairinLevel3;
-    [SerializeField, Range(0, 10)] private int _randomPairinLevel4;
-    public int RandomPairinLevel4 => _randomPairinLevel4;
-    [SerializeField, Range(0, 10)] private int _randomPairinLevelMax;
-    public int RandomPairinLevelMax => _randomPairinLevelMax;
+    [SerializeField, Range(0, 10)] private int _randomPairInLevel1;
+    public int RandomPairInLevel1 => _randomPairInLevel1;
+    [SerializeField, Range(0, 10)] private int _randomPairInLevel2;
+    public int RandomPairInLevel2 => _randomPairInLevel2;
+    [SerializeField, Range(0, 10)] private int _randomPairInLevel3;
+    public int RandomPairInLevel3 => _randomPairInLevel3;
+    [SerializeField, Range(0, 10)] private int _randomPairInLevel4;
+    public int RandomPairInLevel4 => _randomPairInLevel4;
+    [SerializeField, Range(0, 10)] private int _randomPairInLevelMax;
+    public int RandomPairInLevelMax => _randomPairInLevelMax;
 
     private void OnValidate()
     {
         var validate = new BalanceValidate();
 
-        validate.ValidateValue(ref _randomPairinLevel1, 0);
-        validate.ValidateValue(ref _randomPairinLevel2, _randomPairinLevel1);
-        validate.ValidateValue(ref _randomPairinLevel3, _randomPairinLevel2);
-        validate.ValidateValue(ref _randomPairinLevel4, _randomPairinLevel3);
-        validate.ValidateValue(ref _randomPairinLevelMax, _randomPairinLevel4);
+        validate.ValidateValue(ref _randomPairInLevel1, 0);
+        validate.ValidateValue(ref _randomPairInLevel2, _randomPairInLevel1);
+        validate.ValidateValue(ref _randomPairInLevel3, _randomPairInLevel2);
+        validate.ValidateValue(ref _randomPairInLevel4, _randomPairInLevel3);
+        validate.ValidateValue(ref _randomPairInLevelMax, _randomPairInLevel4);
     }
 }

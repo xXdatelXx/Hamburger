@@ -4,7 +4,7 @@ using System;
 
 public class Saver<T> where T : SerializableClass
 {
-    private const string Folder = "/Data/Statistics";
+    private const string Folder = "/Containers/Statistics";
     private readonly string _path;
 
     public Saver(string fileName, T defaultValue)

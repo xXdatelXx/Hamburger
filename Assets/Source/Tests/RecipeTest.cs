@@ -62,6 +62,6 @@ public class RecipeTest
         Assert.AreEqual(doCorrectly, true);
     }
 
-    class IncorectItem : Item
+    class IncorectIngredient : Ingredient
     { }
 }

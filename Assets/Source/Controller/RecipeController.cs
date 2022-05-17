@@ -4,9 +4,17 @@ using Zenject;
 public class RecipeController : MonoBehaviour
 {
     [SerializeField] private RecipeControllerEvents _events;
-    [Inject] private readonly RecipeItemFactory _itemFactory;
-    [Inject] private readonly RecipeFactory _recipeFactory;
-    [Inject] private readonly ItemsList _itemsList;
+    private RecipeGameObjectFactory _gameObjectFactory;
+    private RecipeFactory _recipeFactory;
+    private Ingredients _ingredients;
+
+    [Inject]
+    private void Construct(RecipeGameObjectFactory gameObjectFactory, RecipeFactory recipeFactory, Ingredients ingredients)
+    {
+        _gameObjectFactory = gameObjectFactory;
+        _recipeFactory = recipeFactory;
+        _ingredients = ingredients;
+    }
 
     private void Awake()
     {
@@ -15,13 +23,13 @@ public class RecipeController : MonoBehaviour
 
     public void Spawn()
     {
-        foreach (Item item in _recipeFactory.Recipe.Items)
-            _itemFactory.Create(_itemsList.Find(item));
+        foreach (Ingredient ingredient in _recipeFactory.Recipe.Ingredients)
+            _gameObjectFactory.Create(_ingredients.Find(ingredient));
     }
 
     public void CreateNewRecipe()
     {
-        _itemFactory.DestroyAll();
+        _gameObjectFactory.DestroyAll();
         _events.OnCreateNewRecipe(_recipeFactory.Create());
     }
 }

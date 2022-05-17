@@ -3,25 +3,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "GameData/Balance/Level", fileName = "LevelBalance")]
 public class LevelBalance : ScriptableObject
 {
-    [SerializeField, Range(0, 30)] private int _itemsInFirstLevel = 0;
-    public int ItemsInFirstLevel => _itemsInFirstLevel;
+    [SerializeField, Range(0, 30)] private int _ingredientsInFirstLevel = 0;
+    public int IngredientsInFirstLevel => _ingredientsInFirstLevel;
 
-    [SerializeField, Range(0, 30)] private int _itemsInSecondLevel = 0;
-    public int ItemsInSecondLevel => _itemsInSecondLevel;
+    [SerializeField, Range(0, 30)] private int _ingredientsInSecondLevel = 0;
+    public int IngredientsInSecondLevel => _ingredientsInSecondLevel;
 
-    [SerializeField, Range(0, 30)] private int _itemsInThirdtLevel = 0;
-    public int ItemsInThirdLevel => _itemsInThirdtLevel;
+    [SerializeField, Range(0, 30)] private int _ingredientsInThirdtLevel = 0;
+    public int IngredientsInThirdLevel => _ingredientsInThirdtLevel;
 
-    [SerializeField, Range(0, 30)] private int _itemsInFourthLevel = 0;
-    public int ItemsInFourthtLevel => _itemsInFourthLevel;
+    [SerializeField, Range(0, 30)] private int _ingredientsInFourthLevel = 0;
+    public int IngredientsInFourthtLevel => _ingredientsInFourthLevel;
 
     private void OnValidate()
     {
         var validate = new BalanceValidate();
 
-        validate.ValidateValue(ref _itemsInFirstLevel, 0);
-        validate.ValidateValue(ref _itemsInSecondLevel, _itemsInFirstLevel);
-        validate.ValidateValue(ref _itemsInThirdtLevel, _itemsInSecondLevel);
-        validate.ValidateValue(ref _itemsInFourthLevel, _itemsInThirdtLevel);
+        validate.ValidateValue(ref _ingredientsInFirstLevel, 0);
+        validate.ValidateValue(ref _ingredientsInSecondLevel, _ingredientsInFirstLevel);
+        validate.ValidateValue(ref _ingredientsInThirdtLevel, _ingredientsInSecondLevel);
+        validate.ValidateValue(ref _ingredientsInFourthLevel, _ingredientsInThirdtLevel);
     }
 }
