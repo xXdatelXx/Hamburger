@@ -5,16 +5,17 @@ using System;
 public class SceneInstaller : MonoInstaller
 {
     [SerializeField] private HamburgerFactory _hamburgerFactory;
-    [SerializeField] private RecipeGameObjectFactory recipeGameObjectFactory;
+    [SerializeField] private RecipeGameObjectFactory _recipeGameObjectFactory;
     [SerializeField] private HamburgerControllersEvents _hamburgerControllerEvents;
     [SerializeField] private Ingredients _ingredients;
-    [SerializeField] private ControllerSprites _controllerSprites;
+    [SerializeField] private HamburgerControllersSprites _hamburgerControllersSprites;
     [SerializeField] private TimerBalance _timerBalance;
     [SerializeField] private LevelBalance _levelBalance;
     [SerializeField] private EventBalance _eventBalance;
+    [SerializeField] private HideIngredientsBalance _hideIngredientsBalance;
     [SerializeField] private IngredientsInLevelBalance _ingredientsInLevelBalance;
     [SerializeField] private TickableController _tickableController;
-    [SerializeField] GameState _gameState;
+    [SerializeField] private GameState _gameState;
 
     private Hamburger _hamburger;
     private RecipeFactory _recipeFactory;
@@ -25,17 +26,8 @@ public class SceneInstaller : MonoInstaller
     private TimePlay _timePlay;
     private TimeMadeIngredients _timeBetweenMadeIngredients;
     private GameLevel _gameLevel;
-    private HamburgerControllersInitializer _hamburgerControllersInitializer;
-    private HamburgerControllersDataController _hamburgerControllersDataController;
-
-    private void OnValidate()
-    {
-        if (_hamburgerFactory == recipeGameObjectFactory)
-        {
-            enabled = false;
-            throw new Exception("HamburgerFactory must != RecipeItemFactory");
-        }
-    }
+    private HamburgerControllersInitializerFactory _hamburgerControllersInitializerFactory;
+    private HamburgerControllersDataRandomizer _hamburgerControllersDataRandomizer;
 
     public override void InstallBindings()
     {
@@ -46,6 +38,8 @@ public class SceneInstaller : MonoInstaller
         BindTimer();
         BindScore();
         BindGameState();
+        BindHamburgerController();
+        BindBalance();
     }
 
     private void CreateInstance()
@@ -59,8 +53,8 @@ public class SceneInstaller : MonoInstaller
         _recipeFactory = new RecipeFactory(_ingredients, _ingredientsInLevelBalance, _gameLevel);
         _hamburgerValid = new HamburgerValid(_recipeFactory.Create());
         _timeBetweenMadeIngredients = new TimeMadeIngredients();
-        _hamburgerControllersDataController = new HamburgerControllersDataController(_ingredients , _controllerSprites);
-        _hamburgerControllersInitializer = new HamburgerControllersInitializer(_hamburgerControllersDataController.Data);
+        _hamburgerControllersDataRandomizer = new HamburgerControllersDataRandomizer(_ingredients, _hamburgerControllersSprites);
+        _hamburgerControllersInitializerFactory = new HamburgerControllersInitializerFactory(_hamburgerControllersDataRandomizer.Data);
     }
 
     private void BindHumburger()
@@ -69,21 +63,24 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_hamburgerFactory);
         Container.BindInstance(_hamburgerValid);
         Container.BindInstance(_ingredients);
-        Container.BindInstance(_controllerSprites);
-        Container.BindInstance(_hamburgerControllersDataController);
-        Container.BindInstance(_hamburgerControllersInitializer);
+    }
+
+    private void BindHamburgerController()
+    {
+        Container.BindInstance(_hamburgerControllersSprites);
+        Container.BindInstance(_hamburgerControllersDataRandomizer);
+        Container.BindInstance(_hamburgerControllersInitializerFactory);
     }
 
     private void BindRecipe()
     {
         Container.BindInstance(_recipeFactory);
-        Container.BindInstance(recipeGameObjectFactory);
+        Container.BindInstance(_recipeGameObjectFactory);
     }
 
     private void BindEvents()
     {
         Container.BindInstance(_hamburgerControllerEvents);
-        Container.BindInstances(_eventBalance);
     }
 
     private void BindTimer()
@@ -106,4 +103,12 @@ public class SceneInstaller : MonoInstaller
         Container.BindInstance(_gameState);
         Container.BindInstance(_gameLevel);
     }
+
+    private void BindBalance()
+    {
+        Container.BindInstance(_hideIngredientsBalance);
+        Container.BindInstances(_eventBalance);
+    }
 }
+
+

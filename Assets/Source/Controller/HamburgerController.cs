@@ -23,25 +23,12 @@ public class HamburgerController : MonoBehaviour
         _valid = valid;
     }
 
-    private void Awake()
-    {
-        bool initialized =
-            _ingredient != null &&
-            _hamburger != null &&
-            _factory != null &&
-            _events != null &&
-            _valid != null;
-
-        if (!initialized)
-            throw new NullReferenceException();
-    }
-
     public void SetIngredient(Ingredient ingredient)
     {
         if (ingredient == null)
         {
             enabled = false;
-            throw new NullReferenceException("item == null");
+            throw new NullReferenceException("ingredient == null");
         }
 
         _ingredient = ingredient;

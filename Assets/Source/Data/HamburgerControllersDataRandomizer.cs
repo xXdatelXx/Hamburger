@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public struct HamburgerControllersData
+public class HamburgerControllersData
 {
     public List<int> HidesId;
     public List<(Ingredient, Sprite)> Containers;
@@ -15,15 +15,15 @@ public struct HamburgerControllersData
     }
 }
 
-public class HamburgerControllersDataController 
+public class HamburgerControllersDataRandomizer
 {
     public HamburgerControllersData Data { get; private set; }
     private readonly Ingredients _ingredients;
 
-    public HamburgerControllersDataController(Ingredients ingredients, ControllerSprites controllerSprites)
+    public HamburgerControllersDataRandomizer(Ingredients ingredients, HamburgerControllersSprites hamburgerControllersSprites)
     {
         _ingredients = ingredients;
-        Data = new HamburgerControllersData(new List<int>() ,ingredients.GetList().Select((t, i) => (t, controllerSprites.Sprites[i])).ToList());
+        Data = new HamburgerControllersData(new List<int>(), ingredients.GetList().Select((t, i) => (t, hamburgerControllersSprites.Sprites[i])).ToList());
     }
 
     public void RandomizeIngredient(int randomPairCount)
@@ -54,10 +54,10 @@ public class HamburgerControllersDataController
         Data.HidesId = new List<int>();
         for (int i = 0; i < hideItems; i++)
         {
-            int id = Random.Range(0,  Data.HidesId.Count);
+            int id = Random.Range(0, Data.HidesId.Count);
 
             while (Data.HidesId.Contains(id))
-                id = Random.Range(0,  Data.HidesId.Count);
+                id = Random.Range(0, Data.HidesId.Count);
 
             Data.HidesId.Add(id);
         }

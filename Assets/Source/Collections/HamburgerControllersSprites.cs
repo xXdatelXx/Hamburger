@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerSprites : MonoBehaviour
+public class HamburgerControllersSprites : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _sprites;
     public IReadOnlyList<Sprite> Sprites => _sprites;

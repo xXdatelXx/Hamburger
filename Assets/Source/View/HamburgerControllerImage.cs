@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class HamburgerControllerImage : MonoBehaviour
 {
-    [SerializeField] private Image _image;
-    [SerializeField] private Image _hideImage;
+    [SerializeField] private Sprite _hideSprite;
+    private Image _image;
+
+    private void Awake()
+    {
+        _image = GetComponent<Image>();
+    }
 
     public void Set(Sprite sprite)
     {
-        _hideImage.enabled = false;
         _image.sprite = sprite;
     }
 
     public void Hide()
     {
-        _hideImage.enabled = true;
+        _image.sprite = _hideSprite;
     }
 }
