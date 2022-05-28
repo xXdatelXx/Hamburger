@@ -7,7 +7,7 @@ public class TimeBetweenMadeIngredientsView : ResultView
 
     protected override float GetResult()
     {
-        return (float)Math.Round((double)_timeMadeIngredients.CurentTime, 3);
+        return (float)Math.Round(_timeMadeIngredients.CurentTime, 3);
     }
 
     protected override bool NewRecord()

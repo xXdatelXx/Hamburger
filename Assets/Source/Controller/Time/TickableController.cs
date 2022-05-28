@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TickableController : MonoBehaviour
 {
-    private List<Tickable> _tickables = new List<Tickable>();
+    private readonly List<Tickable> _tickables = new List<Tickable>();
 
     private void FixedUpdate()
     {
@@ -16,7 +16,7 @@ public class TickableController : MonoBehaviour
     public void Add(Tickable tickable)
     {
         if (tickable is null)
-            throw new ArgumentNullException("tickable on TickableController is null");
+            throw new ArgumentNullException(nameof(tickable));
 
         _tickables.Add(tickable);
     }

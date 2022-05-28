@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class GameState : MonoBehaviour
 {
     [SerializeField] private UnityEvent _onPlay;
+    [SerializeField] private UnityEvent _onStartLevel;
     [SerializeField] private UnityEvent _onEndPlay;
     [SerializeField] private UnityEvent _onInspectEvent;
     [SerializeField] private UnityEvent _onEndInspectEvent;
@@ -15,6 +16,7 @@ public class GameState : MonoBehaviour
     private States _state;
     private enum States
     {
+        MainMenu,
         InspectRecipe,
         InspectEvent,
         Play,
@@ -24,13 +26,21 @@ public class GameState : MonoBehaviour
 
     public void Play()
     {
-        if (_state == States.InspectRecipe)
+        switch (_state)
         {
-            _state = States.Play;
-
-            _onEndInspectRecipe.Invoke();
-            _onPlay.Invoke();
+            case States.MainMenu:
+                _onPlay.Invoke();
+                break;
+            case States.InspectRecipe:
+                break;
+            default:
+                return;
         }
+
+        _state = States.Play;
+
+        _onEndInspectRecipe.Invoke();
+        _onStartLevel.Invoke();
     }
 
     public void Lose()

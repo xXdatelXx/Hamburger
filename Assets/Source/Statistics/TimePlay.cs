@@ -16,10 +16,7 @@ public class TimePlay
 
     public void StartPlay(Stopwatch stopwatch)
     {
-        if (stopwatch is null)
-            throw new NullReferenceException("Stopwatch on TimePlay is null");
-
-        _stopwatch = stopwatch;
+        _stopwatch = stopwatch ?? throw new NullReferenceException("Stopwatch on TimePlay is null");
     }
 
     public void EndPlay()

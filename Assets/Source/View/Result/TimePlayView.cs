@@ -7,7 +7,7 @@ public class TimePlayView : ResultView
 
     protected override float GetResult()
     {
-        return (float)Math.Round((decimal)_timePlay.CurentTimePlay, 3);
+        return (float)Math.Round(_timePlay.CurentTimePlay, 3);
     }
 
     protected override bool NewRecord()

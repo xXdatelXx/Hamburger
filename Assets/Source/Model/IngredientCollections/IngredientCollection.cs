@@ -4,7 +4,7 @@ using System;
 // Нада шоб не могли добавить null
 public abstract class IngredientCollection
 {
-    private List<Ingredient> _ingredients = new List<Ingredient>();
+    private List<Ingredient> _ingredients = new();
     public IReadOnlyList<Ingredient> Ingredients => _ingredients;
     public int IngredientCount => _ingredients.Count;
 

@@ -9,7 +9,6 @@ public class TimeMadeIngredients
     private List<float> _allTimes;
     private bool _init;
     public float CurentTime { get; private set; }
-    public float MinTime => _saver.Load().AllTimes.Min();
     public float AllAvarageTime => GetAvarageTime();
     public bool NewRecord { get; private set; }
 
@@ -20,10 +19,7 @@ public class TimeMadeIngredients
 
     public void SetStopwatch(Stopwatch stopwatch)
     {
-        if (stopwatch is null)
-            throw new NullReferenceException("Stopwatch on TimePlay is null");
-
-        _stopwatch = stopwatch;
+        _stopwatch = stopwatch ?? throw new NullReferenceException("Stopwatch on TimePlay is null");
         _allTimes = new List<float>();
 
         _init = true;
@@ -65,9 +61,7 @@ public class TimeMadeIngredients
         if (!_init)
             return;
 
-        float allTime = 0;
-        for (int i = 0; i < _allTimes.Count; i++)
-            allTime += _allTimes[i];
+        float allTime = _allTimes.Sum();
 
         CurentTime = allTime / _allTimes.Count;
     }
@@ -77,7 +71,8 @@ public class TimeMadeIngredients
         if (CurentTime == 0)
             return;
 
-        if (MinTime > CurentTime)
+        var allTimes = _saver.Load().AllTimes;
+        if (allTimes.Count == 0 || allTimes.Min() > CurentTime)
             NewRecord = true;
     }
 
@@ -96,9 +91,7 @@ public class TimeMadeIngredients
     {
         var allTimes = _saver.Load().AllTimes;
 
-        float allTime = 0;
-        for (int i = 0; i < _allTimes.Count; i++)
-            allTime += _allTimes[i];
+        float allTime = _allTimes.Sum();
 
         return allTime / allTimes.Count;
     }

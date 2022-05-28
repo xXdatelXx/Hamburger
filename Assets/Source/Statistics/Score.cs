@@ -1,10 +1,16 @@
 public class Score
 {
-    private Saver<ScoreSeiazable> _saver;
+    private readonly Saver<ScoreSeiazable> _saver;
 
     public int CurentScore { get; private set; }
     public int MaxValue => _saver.Load().MaxValue;
-    public int AllValue => _saver.Load().AllScore;
+    public int AllValue
+    {
+        get
+        {
+            return _saver.Load().AllScore;
+        }
+    }
 
     public bool NewRecord { get; private set; }
 

@@ -1,7 +1,8 @@
 public class MadeIngredients
 {
-    private Saver<MadeIngredientSeiazable> _saver;
+    private readonly Saver<MadeIngredientSeiazable> _saver;
     public int CurentMadeIngredients { get; private set; }
+    public int MaxMadeIngredients => _saver.Load().MaxMadeIngredients;
     public bool NewRecord { get; private set; }
 
     public MadeIngredients()

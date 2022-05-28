@@ -6,11 +6,15 @@ using UnityEngine.UI;
 public abstract class ResultView : MonoBehaviour
 {
     [SerializeField] private UnityEvent _onNewRecord;
+    [SerializeField] private bool _awakeView;
     private Text _text;
 
     private void Awake()
     {
         _text = GetComponent<Text>();
+
+        if (_awakeView)
+            View();
     }
 
     public void View()
@@ -22,5 +26,8 @@ public abstract class ResultView : MonoBehaviour
     }
 
     protected abstract float GetResult();
-    protected abstract bool NewRecord();
+    protected virtual bool NewRecord()
+    {
+        return false;
+    }
 }

@@ -6,10 +6,10 @@ public abstract class IngredientFactory : MonoBehaviourFactory<Ingredient>
 
     protected override void SetPosition(Ingredient ingredient)
     {
-        float positionX = ingredient.transform.position.x;
+        float x = ingredient.transform.position.x;
+        float y = _ingredientUpPosition.y - ingredient.DownLocalPosition.y;
 
-        ingredient.transform.position = _ingredientUpPosition - ingredient.DownLocalPosition;
-        ingredient.transform.position = new Vector2(positionX, ingredient.transform.position.y);
+        ingredient.transform.position = new Vector2(x, y);
 
         _ingredientUpPosition = ingredient.UpPosition;
     }

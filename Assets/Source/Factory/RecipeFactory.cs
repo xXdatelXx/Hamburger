@@ -21,7 +21,7 @@ public class RecipeFactory
             (
                 ingredient =>
                 ingredient.GetType() != typeof(BreadTop) &&
-                ingredient.GetType() != typeof(BreadTop)
+                ingredient.GetType() != typeof(BreadBottom)
             )
             .ToList();
     }
@@ -84,10 +84,10 @@ public class RecipeFactory
             )
             .ToList();
 
-        for (int i = 0; i < greensId.Count; i++)
+        foreach (int id in greensId)
         {
-            if (recipe[greensId[i] - 1].GetType() == typeof(Chease))
-                recipe.Set(greensId[i], ingredients[Random.Range(0, ingredients.Count)]);
+            if (recipe[id - 1].GetType() == typeof(Chease))
+                recipe.Set(id, ingredients[Random.Range(0, ingredients.Count)]);
         }
     }
 
