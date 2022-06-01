@@ -3,6 +3,7 @@ public class MadeIngredients
     private readonly Saver<MadeIngredientSeiazable> _saver;
     public int CurentMadeIngredients { get; private set; }
     public int MaxMadeIngredients => _saver.Load().MaxMadeIngredients;
+    public int AllMadeIngredients => _saver.Load().AllMadeIngredients;
     public bool NewRecord { get; private set; }
 
     public MadeIngredients()

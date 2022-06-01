@@ -1,11 +1,11 @@
 using Zenject;
 
-public class AllMadeIngredientsView : ResultView
+public class MaxMadedIngredientsView : ResultView
 {
     [Inject] private MadeIngredients _madeIngredients;
 
     protected override float GetResult()
     {
-        return _madeIngredients.AllMadeIngredients;
+        return _madeIngredients.MaxMadeIngredients;
     }
 }

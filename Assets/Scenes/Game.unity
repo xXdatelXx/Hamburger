@@ -1958,6 +1958,7 @@ MonoBehaviour:
           m_StringArgument: NewRecord
           m_BoolArgument: 1
         m_CallState: 2
+  _awakeView: 0
 --- !u!114 &563589884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8635,6 +8636,7 @@ MonoBehaviour:
           m_StringArgument: NewRecord
           m_BoolArgument: 1
         m_CallState: 2
+  _awakeView: 0
 --- !u!114 &987201577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9501,7 +9503,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1324868756}
   - component: {fileID: 1324868755}
+  - component: {fileID: 1324868762}
+  - component: {fileID: 1324868761}
+  - component: {fileID: 1324868760}
+  - component: {fileID: 1324868759}
+  - component: {fileID: 1324868758}
   - component: {fileID: 1324868757}
+  - component: {fileID: 1324868763}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -9523,7 +9531,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 1324868763}
+  - {fileID: 1324868761}
+  - {fileID: 1324868762}
+  - {fileID: 1324868760}
   - {fileID: 1324868757}
+  - {fileID: 1324868758}
+  - {fileID: 1324868759}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -9563,23 +9577,95 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324868754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 089748c0c7212a142a50cb5de3b02bbe, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d7a1d18440e884c87ad78024656360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tickableController: {fileID: 1211411568}
+--- !u!114 &1324868758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d65630387629b04f928785a213974c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1324868759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59e3d4744b29764f8cd423e6f12cd54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hamburgerControllersSprites: {fileID: 1950234798}
+  _hamburgerControllerEvents: {fileID: 1837453828}
+--- !u!114 &1324868760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939da179894fd894dbf86f56be80cd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameState: {fileID: 585622440}
+--- !u!114 &1324868761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d659fda65469d61418a01d7db94a623b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _hamburgerFactory: {fileID: 1403658845}
   _recipeGameObjectFactory: {fileID: 1403658846}
-  _hamburgerControllerEvents: {fileID: 1837453828}
-  _ingredients: {fileID: 202730927}
-  _hamburgerControllersSprites: {fileID: 1950234798}
+--- !u!114 &1324868762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbb9f1ee3273344a9e44879d53d35b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _timerBalance: {fileID: 11400000, guid: a1244a5154ba20d4e86600a19558b946, type: 2}
   _levelBalance: {fileID: 11400000, guid: 56f48cf2eadf6d74c81aa0b8fb06e750, type: 2}
-  _eventBalance: {fileID: 11400000, guid: 45193952f6fc82d4795c760c62952785, type: 2}
   _hideIngredientsBalance: {fileID: 11400000, guid: fa498a7b2a6eeb841afb52abb42c5de8, type: 2}
   _ingredientsInLevelBalance: {fileID: 11400000, guid: f39c9089a16e94c40a50b34e2a0fde0b, type: 2}
-  _tickableController: {fileID: 1211411568}
-  _gameState: {fileID: 585622440}
+  _eventBalance: {fileID: 11400000, guid: 45193952f6fc82d4795c760c62952785, type: 2}
+--- !u!114 &1324868763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324868754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34158c7c2e286d4cb1e639faebff9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ingredients: {fileID: 202730927}
 --- !u!1 &1350693727
 GameObject:
   m_ObjectHideFlags: 0
@@ -9726,6 +9812,7 @@ MonoBehaviour:
           m_StringArgument: NewRecord
           m_BoolArgument: 1
         m_CallState: 2
+  _awakeView: 0
 --- !u!114 &1355477311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10534,6 +10621,7 @@ MonoBehaviour:
           m_StringArgument: NewRecord
           m_BoolArgument: 1
         m_CallState: 2
+  _awakeView: 0
 --- !u!114 &1477316590
 MonoBehaviour:
   m_ObjectHideFlags: 0

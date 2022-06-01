@@ -34,7 +34,7 @@ public class SwipeDetect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         Vector2 vectorDirection = _startPosition - eventData.position;
         Direction direction =
             MathF.Abs(vectorDirection.x) > MathF.Abs(vectorDirection.y)
-            ? vectorDirection.x > 0 ? Direction.Right : Direction.Left
+            ? vectorDirection.x > 0 ? Direction.Left : Direction.Right
             : vectorDirection.y > 0 ? Direction.Up : Direction.Down;
 
         OnSwipe?.Invoke(direction);

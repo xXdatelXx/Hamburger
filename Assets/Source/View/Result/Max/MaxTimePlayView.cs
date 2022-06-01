@@ -1,12 +1,12 @@
 using Zenject;
 using System;
 
-public class AllTimePlayView : ResultView
+public class MaxTimePlayView : ResultView
 {
     [Inject] private TimePlay _timePlay;
 
     protected override float GetResult()
     {
-        return (float)Math.Round(_timePlay.AllTimePlay, 3);
+        return (float)Math.Round(_timePlay.MaxTimePlay, 3);
     }
 }

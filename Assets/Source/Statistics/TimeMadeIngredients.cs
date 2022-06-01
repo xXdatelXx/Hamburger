@@ -91,7 +91,7 @@ public class TimeMadeIngredients
     {
         var allTimes = _saver.Load().AllTimes;
 
-        float allTime = _allTimes.Sum();
+        float allTime = allTimes.Sum();
 
         return allTime / allTimes.Count;
     }
