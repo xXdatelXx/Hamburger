@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 public class SwipeDetect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField, Range(0, 100)] private float _minSwipeLength;
+    public event Action<PointerEventData> OnBeginSwipe;
     public event Action<Direction> OnSwipe;
-    public event Action OnSwiping;
+    public event Action<PointerEventData> OnSwiping;
     private bool _canDetect => _minSwipeLength < _length;
     private Vector2 _startPosition;
     private float _length;
@@ -14,11 +15,12 @@ public class SwipeDetect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData eventData)
     {
         _startPosition = eventData.position;
+        OnBeginSwipe?.Invoke(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        OnSwiping?.Invoke();
+        OnSwiping?.Invoke(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -34,7 +36,7 @@ public class SwipeDetect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         Vector2 vectorDirection = _startPosition - eventData.position;
         Direction direction =
             MathF.Abs(vectorDirection.x) > MathF.Abs(vectorDirection.y)
-            ? vectorDirection.x > 0 ? Direction.Left : Direction.Right
+            ? vectorDirection.x > 0 ? Direction.Right : Direction.Left
             : vectorDirection.y > 0 ? Direction.Up : Direction.Down;
 
         OnSwipe?.Invoke(direction);

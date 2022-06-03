@@ -6,6 +6,6 @@ public class AllMadeIngredientsView : ResultView
 
     protected override float GetResult()
     {
-        return _madeIngredients.AllMadeIngredients;
+        return _madeIngredients.AllValue;
     }
 }

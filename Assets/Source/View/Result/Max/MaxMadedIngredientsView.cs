@@ -6,6 +6,6 @@ public class MaxMadedIngredientsView : ResultView
 
     protected override float GetResult()
     {
-        return _madeIngredients.MaxMadeIngredients;
+        return _madeIngredients.MaxValue;
     }
 }

@@ -419,7 +419,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1806809852}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &298129017
 AudioListener:
@@ -1039,7 +1039,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806809852}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &720205373
 MonoBehaviour:
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 720205370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d65630387629b04f928785a213974c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 21912d63cc862bb48a1c75b23702d14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &741303398
@@ -12433,8 +12433,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1022031189}
-  - {fileID: 298129016}
   - {fileID: 720205371}
+  - {fileID: 298129016}
   m_Father: {fileID: 1381673615}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12521,7 +12521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _swipeDetect: {fileID: 1433904776}
   _switcherAnimator: {fileID: 1815639004}
-  _timeToLoad: 2
+  _timeToLoad: 0
   _canSwitchLeft: 1
   _canSwitchRight: 1
 --- !u!1 &1912569052

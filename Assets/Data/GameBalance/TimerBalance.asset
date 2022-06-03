@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f756c4403cdd71408eb2132b4719c84, type: 3}
   m_Name: TimerBalance
   m_EditorClassIdentifier: 
-  _timerTime: 30
+  <Time>k__BackingField: 30
+  <HamburgerAddTime>k__BackingField: 5
+  <ErrorRemoveTime>k__BackingField: 1
