@@ -11,6 +11,7 @@ public class Ingredients : MonoBehaviour
     [SerializeField] private Healmanth _healmanth;
     [SerializeField] private Ketchup _ketchup;
     [SerializeField] private Meat _meat;
+    [SerializeField] private Tomato _tomato;
     public int Count => GetList().Count;
 
     public List<Ingredient> GetList()
@@ -23,7 +24,8 @@ public class Ingredients : MonoBehaviour
             _green,
             _healmanth,
             _ketchup,
-            _meat
+            _meat,
+            _tomato
          };
     }
 
