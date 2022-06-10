@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _downPosition: {fileID: 3335672439504851553}
   _upPosition: {fileID: 5415872228044511206}
+  _sprite: {fileID: 3375963033972212945}
 --- !u!95 &-4988424941931576327
 Animator:
   serializedVersion: 4

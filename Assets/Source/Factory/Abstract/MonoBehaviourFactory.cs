@@ -14,7 +14,9 @@ public abstract class MonoBehaviourFactory<T> : MonoBehaviour where T : MonoBeha
             throw new NullReferenceException("entity on create == null");
 
         var newEntity = Instantiate(entity, _parent);
-        SetPosition(newEntity.GetComponent<T>());
+        T t = newEntity.GetComponent<T>();
+        SetPosition(t);
+        Init(t);
 
         _entities.Add(newEntity);
 
@@ -30,4 +32,5 @@ public abstract class MonoBehaviourFactory<T> : MonoBehaviour where T : MonoBeha
     }
 
     protected abstract void SetPosition(T entity);
+    protected virtual void Init(T entity) { }
 }

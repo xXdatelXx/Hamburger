@@ -1,32 +1,34 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System;
 
-public class SceneSwitcher
+public class SceneSwitcher : MonoBehaviour
 {
+    [SerializeField, Range(0, 10)] private float _minLoadTime;
+    private AsyncOperation _scene;
     private int _sceneCount => SceneManager.sceneCountInBuildSettings;
-    private int _curentSceneId => SceneManager.GetActiveScene().buildIndex;
+    public int CurentSceneId => SceneManager.GetActiveScene().buildIndex;
+    public event Action OnLoad;
 
-    public void Switch(int sceneId)
+    public void AsyncLoad(int sceneId)
     {
-        if (SceneIdvalidity(sceneId))
-            SceneManager.LoadScene(sceneId);
-    }
-
-    public void Switch(Direction direction)
-    {
-        int sceneId = direction switch
+        if (IdValidity(sceneId))
         {
-            Direction.Left => _curentSceneId - 1,
-            Direction.Down => _curentSceneId - 1,
-            Direction.Right => _curentSceneId + 1,
-            Direction.Up => _curentSceneId + 1,
-            _ => throw new InvalidOperationException()
-        };
-
-        Switch(sceneId);
+            _scene = SceneManager.LoadSceneAsync(sceneId);
+            _scene.allowSceneActivation = false;
+            OnLoad?.Invoke();
+            StartCoroutine(Switch());
+        }
     }
 
-    private bool SceneIdvalidity(int sceneId)
+    private IEnumerator Switch()
+    {
+        yield return new WaitForSeconds(_minLoadTime);
+        _scene.allowSceneActivation = true;
+    }
+
+    public bool IdValidity(int sceneId)
     {
         return sceneId >= 0 && sceneId < _sceneCount;
     }

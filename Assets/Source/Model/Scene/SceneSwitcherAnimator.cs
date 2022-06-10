@@ -3,16 +3,21 @@ using UnityEngine;
 public class SceneSwitcherAnimator : MonoBehaviour
 {
     [SerializeField] private Animator _menuAnimator;
-    [SerializeField] private string _leftTrigger;
-    [SerializeField] private string _rightTrigger;
+    [SerializeField] private string _exit;
+    [SerializeField] private SceneSwitcher _switcher;
 
-    public void SwitchLeft()
+    private void OnEnable()
     {
-        _menuAnimator.SetTrigger(_leftTrigger);
+        _switcher.OnLoad += Exit;
     }
 
-    public void SwitchRight()
+    private void OnDisable()
     {
-        _menuAnimator.SetTrigger(_rightTrigger);
+        _switcher.OnLoad -= Exit;
+    }
+
+    public void Exit()
+    {
+        _menuAnimator.SetTrigger(_exit);
     }
 }

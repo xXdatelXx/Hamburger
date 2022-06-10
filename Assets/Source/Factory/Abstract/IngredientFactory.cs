@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class IngredientFactory : MonoBehaviourFactory<Ingredient>
 {
     private Vector2 _ingredientUpPosition;
+    private int _layer;
 
     protected override void SetPosition(Ingredient ingredient)
     {
@@ -14,8 +15,15 @@ public abstract class IngredientFactory : MonoBehaviourFactory<Ingredient>
         _ingredientUpPosition = ingredient.UpPosition;
     }
 
-    public void ResetSpawnPosition()
+    protected override void Init(Ingredient entity)
+    {
+        _layer++;
+        entity.SetLayer(_layer);
+    }
+
+    public void Reset()
     {
         _ingredientUpPosition = Vector2.zero;
+        _layer = 0;
     }
 }

@@ -1,18 +1,13 @@
 public class ScoreAchivement : Achievement
 {
-    private Score _score;
-
-    private void Awake()
-    {
-        _score = new Score();
-    }
-
     protected override bool CanAchieve(int value, Kind kind)
     {
+        var score = new Score();
+
         return kind switch
         {
-            Kind.All => _score.AllValue >= value,
-            Kind.Max => _score.MaxValue >= value,
+            Kind.All => score.AllValue >= value,
+            Kind.Max => score.MaxValue >= value,
             _ => true
         };
     }

@@ -5,6 +5,10 @@ public abstract class Ingredient : MonoBehaviour
 {
     [SerializeField] private Transform _downPosition;
     [SerializeField] private Transform _upPosition;
+    [SerializeField] private SpriteRenderer _sprite;
+
+    public Vector2 DownLocalPosition => _downPosition.localPosition;
+    public Vector2 UpPosition => _upPosition.position;
 
     private void Awake()
     {
@@ -15,6 +19,8 @@ public abstract class Ingredient : MonoBehaviour
         }
     }
 
-    public Vector2 DownLocalPosition => _downPosition.localPosition;
-    public Vector2 UpPosition => _upPosition.position;
+    public virtual void SetLayer(int layer)
+    {
+        _sprite.sortingOrder = layer;
+    }
 }
