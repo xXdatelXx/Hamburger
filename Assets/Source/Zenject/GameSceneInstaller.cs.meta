@@ -3,7 +3,19 @@ guid: b66f40bf508b182439fb3748fd0b3eb2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _hamburgerFactory: {fileID: 4280701721220262610, guid: 66e5f98b3fdc9a547be87fa7107e1bed, type: 3}
+  - _recipeGameObjectFactory: {fileID: 4280701721220262609, guid: 66e5f98b3fdc9a547be87fa7107e1bed, type: 3}
+  - _hamburgerControllerEvents: {instanceID: 0}
+  - _ingredients: {fileID: 1041461761786929781, guid: 5764879c9ce667b4999b899dd132228e, type: 3}
+  - _hamburgerControllersSprites: {instanceID: 0}
+  - _timerBalance: {fileID: 11400000, guid: a1244a5154ba20d4e86600a19558b946, type: 2}
+  - _levelBalance: {fileID: 11400000, guid: 56f48cf2eadf6d74c81aa0b8fb06e750, type: 2}
+  - _eventBalance: {fileID: 11400000, guid: 45193952f6fc82d4795c760c62952785, type: 2}
+  - _hideIngredientsBalance: {fileID: 11400000, guid: fa498a7b2a6eeb841afb52abb42c5de8, type: 2}
+  - _ingredientsInLevelBalance: {fileID: 11400000, guid: f39c9089a16e94c40a50b34e2a0fde0b, type: 2}
+  - _tickableController: {instanceID: 0}
+  - _gameState: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

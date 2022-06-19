@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "GameData/Balance/Event", fileName = "EventBalance")]
 public class EventBalance : ScriptableObject
@@ -16,6 +17,15 @@ public class EventBalance : ScriptableObject
     public int RandomPairInLevel4 => _randomPairInLevel4;
     [SerializeField, Range(0, 10)] private int _randomPairInLevelMax;
     public int RandomPairInLevelMax => _randomPairInLevelMax;
+    public List<int> List => new List<int>
+    {
+        _randomPairInLevel1,
+        _randomPairInLevel2,
+        _randomPairInLevel3,
+        _randomPairInLevel4,
+        _randomPairInLevelMax,
+    };
+
 
     private void OnValidate()
     {

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public abstract class Ingredient : MonoBehaviour
 {
@@ -14,8 +13,8 @@ public abstract class Ingredient : MonoBehaviour
     {
         if (_downPosition == null || _upPosition == null)
         {
-            enabled = false;
-            throw new NullReferenceException("downPosition or upPosition is null");
+            _downPosition = transform;
+            _upPosition = transform;
         }
     }
 

@@ -5,7 +5,6 @@ public class Score
     public int CurentScore { get; private set; }
     public int MaxValue => _saver.Load().MaxValue;
     public int AllValue => _saver.Load().AllScore;
-
     public bool NewRecord { get; private set; }
 
     public Score()

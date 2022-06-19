@@ -4,14 +4,16 @@ public class TimePlay
 {
     private Saver<TimePlaySeiazable> _saver;
     private Stopwatch _stopwatch;
+    private TimePlaySeiazable _data;
     public float CurentTimePlay { get; private set; }
-    public bool NewRecord { get; private set; }
+    public bool NewRecord => CurentTimePlay > _data.MaxTimePlay;
     public float AllTimePlay => _saver.Load().AllTimePlay;
     public float MaxTimePlay => _saver.Load().MaxTimePlay;
 
     public TimePlay()
     {
         _saver = new Saver<TimePlaySeiazable>(nameof(TimePlay), new TimePlaySeiazable());
+        _data = _saver.Load();
     }
 
     public void StartPlay(Stopwatch stopwatch)
@@ -19,19 +21,19 @@ public class TimePlay
         _stopwatch = stopwatch ?? throw new NullReferenceException("Stopwatch on TimePlay is null");
     }
 
+    public void Tick()
+    {
+        if (_stopwatch != null)
+            CurentTimePlay = _stopwatch.Time;
+    }
+
     public void EndPlay()
     {
-        CurentTimePlay = _stopwatch.Time;
-        var timePlay = _saver.Load();
+        if (NewRecord)
+            _saver.Save(new TimePlaySeiazable(_data.AllTimePlay, CurentTimePlay));
 
-        if (CurentTimePlay > timePlay.MaxTimePlay)
-        {
-            _saver.Save(new TimePlaySeiazable(timePlay.AllTimePlay, CurentTimePlay));
-            NewRecord = true;
-        }
-
-        timePlay = _saver.Load();
-        _saver.Save(new TimePlaySeiazable(timePlay.AllTimePlay + CurentTimePlay, timePlay.MaxTimePlay));
+        _data = _saver.Load();
+        _saver.Save(new TimePlaySeiazable(_data.AllTimePlay + CurentTimePlay, _data.MaxTimePlay));
 
         _stopwatch = null;
     }

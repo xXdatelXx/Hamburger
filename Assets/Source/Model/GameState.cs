@@ -1,27 +1,20 @@
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class GameState : MonoBehaviour
 {
-    [SerializeField] private UnityEvent _onPlay;
-    [SerializeField] private UnityEvent _onStartLevel;
-    [SerializeField] private UnityEvent _onEndPlay;
-    [SerializeField] private UnityEvent _onInspectEvent;
-    [SerializeField] private UnityEvent _onEndInspectEvent;
-    [SerializeField] private UnityEvent _onInspectRecipe;
-    [SerializeField] private UnityEvent _onEndInspectRecipe;
-    [SerializeField] private UnityEvent _onFinish;
-    [SerializeField] private UnityEvent _onEndFinish;
-    [SerializeField] private UnityEvent _onLose;
     private States _state;
-    private enum States
+    public event Action<States> OnSetState;
+    public enum States
     {
         MainMenu,
         InspectRecipe,
         InspectEvent,
+        EndInspectEvent,
         Play,
         Lose,
-        Finish
+        Finish,
+        Null
     }
 
     public void Play()
@@ -29,7 +22,7 @@ public class GameState : MonoBehaviour
         switch (_state)
         {
             case States.MainMenu:
-                _onPlay.Invoke();
+                OnSetState?.Invoke(States.MainMenu);
                 break;
             case States.InspectRecipe:
                 break;
@@ -37,60 +30,32 @@ public class GameState : MonoBehaviour
                 return;
         }
 
-        _state = States.Play;
-
-        _onEndInspectRecipe.Invoke();
-        _onStartLevel.Invoke();
+        OnSetState?.Invoke(_state = States.Play);
     }
 
     public void Lose()
     {
         if (_state == States.Play)
-        {
-            _state = States.Lose;
-
-            _onLose.Invoke();
-        }
+            OnSetState?.Invoke(_state = States.Lose);
     }
 
     public void Finish()
     {
         if (_state == States.Play)
-        {
-            _state = States.Finish;
-
-            _onEndPlay.Invoke();
-            _onFinish.Invoke();
-        }
+            OnSetState?.Invoke(_state = States.Finish);
     }
 
     public void InspectEvent()
     {
         if (_state == States.Finish)
-        {
-            _state = States.InspectEvent;
-
-            _onEndFinish.Invoke();
-            _onInspectEvent.Invoke();
-        }
+            OnSetState?.Invoke(_state = States.InspectEvent);
     }
 
     public void InspectRecipe()
     {
-        switch (_state)
-        {
-            case States.InspectEvent:
-                _onEndInspectEvent.Invoke();
-                break;
-            case States.Finish:
-                _onEndFinish.Invoke();
-                break;
-            default:
-                return;
-        }
+        if (_state == States.InspectEvent)
+            OnSetState?.Invoke(States.EndInspectEvent);
 
-        _state = States.InspectRecipe;
-
-        _onInspectRecipe.Invoke();
+        OnSetState?.Invoke(_state = States.InspectRecipe);
     }
 }

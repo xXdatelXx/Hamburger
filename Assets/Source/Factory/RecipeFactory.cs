@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class RecipeFactory
 {
@@ -33,12 +34,19 @@ public class RecipeFactory
         recipe.Add(new BreadBottom());
 
         int itemsCount = GetItemsCount();
+
+        if (itemsCount > _ingredients.Count)
+            throw new InvalidOperationException();
+
         for (int i = 0; i < itemsCount; i++)
         {
             int nextItemId = Random.Range(0, _ingredients.Count);
 
-            while (_ingredients[nextItemId].GetType() == recipe[i].GetType())
-                nextItemId = Random.Range(0, _ingredients.Count);
+            if (_ingredients[nextItemId].GetType() == recipe[i].GetType())
+            {
+                i--;
+                continue;
+            }
 
             recipe.Add(_ingredients[nextItemId]);
         }

@@ -1,15 +1,11 @@
 public class ScoreAchivement : Achievement
 {
-    protected override bool CanAchieve(int value, Kind kind)
+    protected override void GetValue(out int maxValue, out int allValue)
     {
         var score = new Score();
 
-        return kind switch
-        {
-            Kind.All => score.AllValue >= value,
-            Kind.Max => score.MaxValue >= value,
-            _ => true
-        };
+        maxValue = score.MaxValue;
+        allValue = score.AllValue;
     }
 }
 

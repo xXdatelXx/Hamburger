@@ -1,14 +1,10 @@
 public class TimeAchievement : Achievement
 {
-    protected override bool CanAchieve(int value, Kind kind)
+    protected override void GetValue(out int maxValue, out int allValue)
     {
         var time = new TimePlay();
 
-        return kind switch
-        {
-            Kind.All => time.AllTimePlay >= value,
-            Kind.Max => time.MaxTimePlay >= value,
-            _ => true
-        };
+        maxValue = (int)time.AllTimePlay;
+        allValue = (int)time.MaxTimePlay;
     }
 }

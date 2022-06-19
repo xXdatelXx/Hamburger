@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class HamburgerControllersData
 {
-    public List<int> HidesId;
     public readonly List<(Ingredient, Sprite)> Containers;
+    public List<int> HidesId;
 
     public HamburgerControllersData(List<int> hidesId, List<(Ingredient, Sprite)> containers)
     {
@@ -32,12 +32,19 @@ public class HamburgerControllersDataRandomizer
             return;
 
         var ingredientsId = new List<int>();
+
+        if (_ingredients.GetList().Count < randomPairCount)
+            return;
+
         for (int i = 0; i < randomPairCount * 2; i++)
         {
             int id = Random.Range(0, _ingredients.GetList().Count);
 
-            while (ingredientsId.Contains(id))
-                id = Random.Range(0, _ingredients.GetList().Count);
+            if (ingredientsId.Contains(id))
+            {
+                i--;
+                continue;
+            }
 
             ingredientsId.Add(id);
         }
@@ -53,12 +60,18 @@ public class HamburgerControllersDataRandomizer
 
         Data.HidesId = new List<int>();
 
+        if (Data.Containers.Count < hideItems)
+            return;
+
         for (int i = 0; i < hideItems; i++)
         {
             int id = Random.Range(0, Data.Containers.Count);
 
-            while (Data.HidesId.Contains(id))
-                id = Random.Range(0, Data.Containers.Count);
+            if (Data.HidesId.Contains(id))
+            {
+                i--;
+                continue;
+            }
 
             Data.HidesId.Add(id);
         }

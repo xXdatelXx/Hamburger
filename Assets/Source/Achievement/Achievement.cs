@@ -21,7 +21,20 @@ public abstract class Achievement : MonoBehaviour
         }
     }
 
-    protected abstract bool CanAchieve(int value, Kind kind);
+    private bool CanAchieve(int value, Kind kind)
+    {
+        int maxValue, allValue;
+        GetValue(out maxValue, out allValue);
+
+        return kind switch
+        {
+            Kind.All => allValue >= value,
+            Kind.Max => maxValue >= value,
+            _ => true
+        };
+    }
+
+    protected abstract void GetValue(out int maxValue, out int allValue);
 }
 
 

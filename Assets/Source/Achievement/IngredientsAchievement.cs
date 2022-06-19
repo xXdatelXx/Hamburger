@@ -1,14 +1,10 @@
 public class IngredientsAchievement : Achievement
 {
-    protected override bool CanAchieve(int value, Kind kind)
+    protected override void GetValue(out int maxValue, out int allValue)
     {
         var madeIngredients = new MadeIngredients();
 
-        return kind switch
-        {
-            Kind.All => madeIngredients.AllValue >= value,
-            Kind.Max => madeIngredients.MaxValue >= value,
-            _ => true
-        };
+        maxValue = madeIngredients.MaxValue;
+        allValue = madeIngredients.AllValue;
     }
 }
