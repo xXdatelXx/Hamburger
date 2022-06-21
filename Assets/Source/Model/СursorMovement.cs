@@ -6,8 +6,6 @@ public class СursorMovement : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private SwipeDetect _swipeDetect;
-    [SerializeField] private Vector2 _upLeftPosition;
-    [SerializeField] private Vector2 _bottomRightPosition;
     [SerializeField, Range(0, 1)] private float _inertionSpeed;
     [SerializeField, Range(0, 1)] private float _inertionForce;
     private Vector3 _startPosition;
@@ -47,7 +45,6 @@ public class СursorMovement : MonoBehaviour
     {
         transform.position = _camera.ScreenToWorldPoint(eventData.position) + _startPosition;
 
-        ClampPosition();
         _target = transform.position;
     }
 
@@ -66,12 +63,6 @@ public class СursorMovement : MonoBehaviour
     private void Inert()
     {
         transform.position = Vector3.Lerp(transform.position, _target, _inertionSpeed);
-        ClampPosition();
-    }
-
-    private void ClampPosition()
-    {
-        transform.position = transform.position.Clamp(_upLeftPosition, _bottomRightPosition);
     }
 
     private void Validate()
